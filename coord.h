@@ -1,6 +1,10 @@
 #ifndef COORD_H
 #define COORD_H
 
+#include <iostream>
+
+using namespace std;
+
 class coord
 {
 public:
@@ -27,6 +31,13 @@ public:
     {
         coord temp(left.x+right.x, left.y+right.y);
         return temp;
+    }
+
+    friend
+    ostream& operator<<(ostream &out, const coord &c)
+    {
+        out << "(" << c.x << ", " << c.y << ")";
+        return out;
     }
 
     int x;

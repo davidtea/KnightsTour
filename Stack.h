@@ -53,14 +53,6 @@ Stack<T>::Stack(unsigned int s)
     resize(s);
 }
 
-
-template<>
-Stack<char>::Stack(unsigned int s)
-{
-    resize(s);
-}
-
-
 template<typename T>
 Stack<T>::Stack(T data, int s)
 {
@@ -99,7 +91,7 @@ void Stack<T>::copy(const Stack<T> &other)
 {
     resize(other.capacity());
     for(int i = 0; i < other.size(); ++i)
-        push(*(T*)other.stack[i]);
+        (*(T*)stack[i]) = (*(T*)other.stack[i]);
 }
 
 template<typename T>
@@ -166,7 +158,7 @@ ostream& operator<<(ostream &out, const Stack<U> &stack)
     if(out == cout)
     {
         for(int i = stack.size()-1; i>-1; --i)
-            out<<"stack["<<i<<"] = "<<(U*)stack.stack[i]<<endl;
+            out<<"stack["<<i<<"] = "<<*(U*)stack.stack[i]<<endl;
 //        *((T *)stack[topOfStack()]) = data;
     }
     else
@@ -178,33 +170,6 @@ ostream& operator<<(ostream &out, const Stack<U> &stack)
     return out;
 }
 
-
-template<>
-istream& operator>>(istream &in, Stack<string> &stack)
-{
-    string line;
-    stringstream ss;
-    int size;
-    string data;
-    if(in == cin)
-    {
-        cout<<"Input Stack capacity: ";
-        in>>size;
-        while(in)
-            while(!line.compare(""))
-                  getline(in, line);
-    }
-    else
-    {
-        getline(in, line);
-        ss<<line.substr(line.find('=')+1);
-        ss>> size;
-    }
-    stack.resize(size);
-    while(in>>data)
-        stack.push(data);
-    return in;
-}
 
 template<typename U>
 istream& operator>>(istream &in, Stack<U> &stack)

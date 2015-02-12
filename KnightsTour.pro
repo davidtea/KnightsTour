@@ -8,7 +8,7 @@ SOURCES += main.cpp \
 
 HEADERS += \
     board.h \
-    basestack.h \
-    Stack.h \
-    coord.h
+    coord.h \
+    node.h \
+    LinkedStack.h
 

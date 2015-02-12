@@ -1,7 +1,8 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include "Stack.h"
+#include <vector>
+#include "LinkedStack.h"
 #include "coord.h"
 
 using namespace std;
@@ -12,19 +13,25 @@ public:
     Board();
     ~Board();
 
-    //Stack of coord
-    Stack<coord>& checkSpots(const coord &c);
-    Stack<int> &checkPossibleSpots(const coord &c, const Stack<coord> &checkThese);
+    //LinkedStack of coord
+    vector<coord> checkSpots(const coord &c);
+    vector<int> checkPossibleSpots(const vector<coord> &checkThese);
+    int findLeastMoves(const vector<int> &fromThese);
+
     bool validSpot(const coord &c);
     bool checkBeenThere(const coord &c);
     bool checkTried(const coord &c);
+    void setBeenThere(const coord &c);
+    void setTried(const coord &c);
     void calculateMoves(const coord &start);
     void doMoves();
+
+    void print();
 
 private:
     bool beenThere [8][8];
     bool tried [8][8];
-    Stack<coord> moves;
+    LinkedStack<coord> moves;
 };
 
 

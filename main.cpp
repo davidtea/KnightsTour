@@ -5,7 +5,9 @@ using namespace std;
 
 int main()
 {
-    cout << "akdsja" << endl;
+    Board chess;
+    chess.calculateMoves(coord(0,0));
+
     return 0;
 }
 
