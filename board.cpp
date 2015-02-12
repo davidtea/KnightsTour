@@ -11,10 +11,37 @@ const coord LEFTUP(-2,1);
 
 Board::Board()
 {
-    moves.resize(65);
-    for (int x=0; x<8; ++x)
+    XDIM = 8;
+    YDIM = 8;
+    beenThere = new bool* [XDIM];
+    tried = new bool* [XDIM];
+
+    moves.resize(XDIM * YDIM);
+    for (int x=0; x<XDIM; ++x)
     {
-        for (int y=0; y<8; ++y)
+        beenThere[x] = new bool[YDIM];
+        tried[x] = new bool[YDIM];
+        for (int y=0; y<YDIM; ++y)
+        {
+            beenThere[x][y] = false;
+            tried[x][y] = false;
+        }
+    }
+}
+
+Board::Board(int x, int y)
+{
+    XDIM = x;
+    YDIM = y;
+    beenThere = new bool* [XDIM];
+    tried = new bool* [XDIM];
+
+    moves.resize(XDIM * YDIM);
+    for (int x=0; x<XDIM; ++x)
+    {
+        beenThere[x] = new bool[YDIM];
+        tried[x] = new bool[YDIM];
+        for (int y=0; y<YDIM; ++y)
         {
             beenThere[x][y] = false;
             tried[x][y] = false;
@@ -24,44 +51,34 @@ Board::Board()
 
 Board::~Board()
 {
-
+    for (int x=0; x<XDIM; ++x)
+    {
+        delete [] beenThere[x];
+        delete [] tried[x];
+    }
+    delete [] beenThere;
+    delete [] tried;
 }
 
 vector<coord> Board::checkSpots(const coord& c)
 {
     vector<coord> spots;
-    if(validSpot(c+UPLEFT)    && checkBeenThere(c+UPLEFT))
-    {
+    if(validSpot(c+UPLEFT)    && !checkBeenThere(c+UPLEFT))
         spots.push_back(c+UPLEFT);
-    }
-    if(validSpot(c+UPRIGHT)   && checkBeenThere(c+UPRIGHT))
-    {
+    if(validSpot(c+UPRIGHT)   && !checkBeenThere(c+UPRIGHT))
         spots.push_back(c+UPRIGHT);
-    }
-    if(validSpot(c+RIGHTUP)   && checkBeenThere(c+RIGHTUP))
-    {
+    if(validSpot(c+RIGHTUP)   && !checkBeenThere(c+RIGHTUP))
         spots.push_back(c+RIGHTUP);
-    }
-    if(validSpot(c+RIGHTDOWN) && checkBeenThere(c+RIGHTDOWN))
-    {
+    if(validSpot(c+RIGHTDOWN) && !checkBeenThere(c+RIGHTDOWN))
         spots.push_back(c+RIGHTDOWN);
-    }
-    if(validSpot(c+DOWNRIGHT) && checkBeenThere(c+DOWNRIGHT))
-    {
+    if(validSpot(c+DOWNRIGHT) && !checkBeenThere(c+DOWNRIGHT))
         spots.push_back(c+DOWNRIGHT);
-    }
-    if(validSpot(c+DOWNLEFT)  && checkBeenThere(c+DOWNLEFT))
-    {
+    if(validSpot(c+DOWNLEFT)  && !checkBeenThere(c+DOWNLEFT))
         spots.push_back(c+DOWNLEFT);
-    }
-    if(validSpot(c+LEFTDOWN)  && checkBeenThere(c+LEFTDOWN))
-    {
+    if(validSpot(c+LEFTDOWN)  && !checkBeenThere(c+LEFTDOWN))
         spots.push_back(c+LEFTDOWN);
-    }
-    if(validSpot(c+LEFTUP)    && checkBeenThere(c+LEFTUP))
-    {
+    if(validSpot(c+LEFTUP)    && !checkBeenThere(c+LEFTUP))
         spots.push_back(c+LEFTUP);
-    }
     cout <<"size:" << spots.size() << endl;
     for(int i=0; i<spots.size(); ++i)
     {
@@ -86,7 +103,7 @@ vector<int> Board::checkPossibleSpots(const vector<coord> &checkThese)
 
 int Board::findLeastMoves(const vector<int> &fromThese)
 {
-    int lowest = 10;
+    int lowest = 100;
     int place;
     for (int i=0; i<fromThese.size(); ++i)
     {
@@ -102,12 +119,12 @@ int Board::findLeastMoves(const vector<int> &fromThese)
 
 bool Board::validSpot(const coord &c)
 {
-    return (c.x >= 0 && c.x < 8 && c.y >= 0 && c.y < 8);
+    return (c.x >= 0 && c.x < XDIM && c.y >= 0 && c.y < YDIM);
 }
 
 bool Board::checkBeenThere(const coord &c)
 {
-    return !beenThere[c.x][c.y];
+    return beenThere[c.x][c.y];
 }
 
 bool Board::checkTried(const coord &c)
@@ -117,17 +134,19 @@ bool Board::checkTried(const coord &c)
 
 void Board::setBeenThere(const coord &c)
 {
-    beenThere[c.x][c.y] = true;
+    beenThere[c.x][c.y] = !beenThere[c.x][c.y];
 }
 
 void Board::setTried(const coord &c)
 {
-    tried[c.x][c.y] = true;
+    tried[c.x][c.y] = !tried[c.x][c.y];
 }
 
 void Board::calculateMoves(const coord &start)
 {
+    startpos = start;
     moves.push(start);
+    setBeenThere(start);
     while(!moves.full())
     {
         vector<coord> check = checkSpots(moves.top());
@@ -138,6 +157,7 @@ void Board::calculateMoves(const coord &start)
         setBeenThere(temp);
         cout << "Moves size: " << moves.size() <<endl;
         print();
+//        cin.ignore();
     }
 }
 
@@ -149,14 +169,18 @@ void Board::doMoves()
 void Board::print()
 {
     cout << endl;
-    for (int x=0; x<8; ++x)
+    for (int y=0; y<YDIM; ++y)
     {
-        for (int y=0; y<8; ++y)
+        for (int x=0; x<XDIM; ++x)
         {
-            if(beenThere[x][y])
-                cout << "X";
+            if(coord(x,y) == startpos)
+                cout << "1 ";
+            else if(coord(x,y) == moves.top())
+                cout << "0 ";
+            else if(beenThere[x][y])
+                cout << "X ";
             else
-                cout << "_";
+                cout << "- ";
         }
         cout << endl;
     }
