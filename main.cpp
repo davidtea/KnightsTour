@@ -5,8 +5,8 @@ using namespace std;
 
 int main()
 {
-    Board chess;
-    chess.calculateMoves(coord(0,0));
+    Board chess(8,8);
+    chess.calculateMoves(coord(4,4));
 
     return 0;
 }

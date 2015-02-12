@@ -11,6 +11,7 @@ class Board
 {
 public:
     Board();
+    Board(int x, int y);
     ~Board();
 
     //LinkedStack of coord
@@ -29,8 +30,11 @@ public:
     void print();
 
 private:
-    bool beenThere [8][8];
-    bool tried [8][8];
+    int XDIM;
+    int YDIM;
+    coord startpos;
+    bool **beenThere;
+    bool **tried;
     LinkedStack<coord> moves;
 };
 
