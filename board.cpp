@@ -159,6 +159,8 @@ void Board::calculateMoves(const coord &start)
         print();
 //        cin.ignore();
     }
+    chessNotation();
+    checkClosed() ? cout << "This tour is closed" << endl : cout << "This tour is open" << endl;
 }
 
 void Board::doMoves()
@@ -166,10 +168,48 @@ void Board::doMoves()
 
 }
 
+bool Board::checkClosed()
+{
+    if(startpos+UPLEFT == moves.top())
+        return true;
+    if(startpos+UPRIGHT == moves.top())
+        return true;
+    if(startpos+RIGHTUP == moves.top())
+        return true;
+    if(startpos+RIGHTDOWN == moves.top())
+        return true;
+    if(startpos+DOWNRIGHT == moves.top())
+        return true;
+    if(startpos+DOWNLEFT == moves.top())
+        return true;
+    if(startpos+LEFTDOWN == moves.top())
+        return true;
+    if(startpos+LEFTUP == moves.top())
+        return true;
+}
+
+void Board::chessNotation()
+{
+    //create in order stack of moves
+    LinkedStack<coord> copy(moves);
+    LinkedStack<coord> reversed(moves.size());
+    while(!copy.empty())
+        reversed.push(copy.pop());
+    //chess notation
+    while(!reversed.empty())
+    {
+        coord temp = reversed.pop();
+        char x = 'a' + temp.x;
+        char y = '1' + temp.y;
+        cout << x << y << " ";
+    }
+    // do each starting position and find all closed tours
+}
+
 void Board::print()
 {
-    cout << endl;
-    for (int y=0; y<YDIM; ++y)
+    cout << "Dimension: " << XDIM << "x" << YDIM << endl;
+    for (int y=YDIM-1; y>=0; --y)
     {
         for (int x=0; x<XDIM; ++x)
         {

@@ -137,15 +137,18 @@ template<typename T>
 void LinkedStack<T>::copy(const LinkedStack<T> &other)
 {
     newLinkedStack(other.capacity());
+    LinkedStack<T> reversed(other.capacity());
     node<T> *ptr;
     for(ptr = other.head; ptr; ptr = ptr->theLink())
+        reversed.push(ptr->theData());
+    for(ptr = reversed.head; ptr; ptr = ptr->theLink())
         push(ptr->theData());
 }
 
 template<typename T>
 void LinkedStack<T>::push(const T &data)
 {
-    cout << "Pushing " << data << " onto the stack." << endl;
+//    cout << "Pushing " << data << " onto the stack." << endl;
     if(full())
         throw FULL;
     node<T> *newNode = new node<T>(data);

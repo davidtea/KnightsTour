@@ -26,7 +26,9 @@ public:
     void setTried(const coord &c);
     void calculateMoves(const coord &start);
     void doMoves();
+    bool checkClosed();
 
+    void chessNotation();
     void print();
 
 private:
