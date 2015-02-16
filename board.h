@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <cstdio>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "LinkedStack.h"
 #include "coord.h"
 
@@ -27,8 +30,7 @@ public:
     void setTried(const coord &c);
     void setHistory(const coord &c);
     void resetTried();
-    void calculateMoves(const coord &start);
-    void doMoves();
+    void calculateMoves(const coord &start, const coord &end);
     bool checkClosed();
     coord backtrack();
 
@@ -39,10 +41,12 @@ private:
     int XDIM;
     int YDIM;
     coord startpos;
+    coord endpos;
     bool **beenThere;
     int  **history;
     int  **tried;
     LinkedStack<coord> moves;
+    vector<coord> btTries;
 };
 
 

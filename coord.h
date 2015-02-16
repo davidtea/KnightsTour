@@ -60,6 +60,16 @@ public:
         return out;
     }
 
+    friend
+    istream& operator >>(istream &in, coord &c)
+    {
+        cout << "X: ";
+        in >> c.x;
+        cout << "Y: ";
+        in >> c.y;
+        return in;
+    }
+
     int x;
     int y;
 
