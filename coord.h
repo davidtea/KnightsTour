@@ -41,6 +41,12 @@ public:
     }
 
     friend
+    bool operator!=(const coord &left, const coord &right)
+    {
+        return (left.x != right.x || left.y != right.y);
+    }
+
+    friend
     coord operator+(const coord &left, const coord &right)
     {
         coord temp(left.x+right.x, left.y+right.y);
