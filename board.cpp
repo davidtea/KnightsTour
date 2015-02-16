@@ -104,7 +104,7 @@ vector<int> Board::checkPossibleSpots(const vector<coord> &checkThese)
 int Board::findLeastMoves(const vector<int> &fromThese)
 {
     srand (time(NULL));
-    int lowest = fromThese[0];
+    int lowest = 8;
     vector<int> lows;
     int place = 0;
     for (unsigned int i=0; i<fromThese.size(); ++i)
@@ -124,7 +124,6 @@ int Board::findLeastMoves(const vector<int> &fromThese)
     i > 1 && (place = rand() % i);
     return place;
 }
-
 
 bool Board::validSpot(const coord &c)
 {
@@ -160,6 +159,7 @@ void Board::resetTried()
 
 void Board::setHistory(const coord &c)
 {
+    //use () ? :
     if(history[c.x][c.y] == 0)
         history[c.x][c.y] = moves.size();
     else
@@ -201,6 +201,7 @@ void Board::calculateMoves(const coord &start, const coord &end)
 
 coord Board::backtrack()
 {
+    //reset then backtrack?
     coord nogood = moves.pop();
     if(moves.size() == 1)
         resetTried();
