@@ -34,6 +34,16 @@ public:
         return *this;
     }
 
+    int getX() const
+    {
+        return x;
+    }
+
+    int getY() const
+    {
+        return y;
+    }
+
     friend
     bool operator==(const coord &left, const coord &right)
     {
@@ -56,7 +66,7 @@ public:
     friend
     ostream& operator <<(ostream &out, const coord &c)
     {
-        out << "(" << c.x << ", " << c.y << ")";
+        out << /*"(" <<*/ c.x << "," << c.y /*<< ")"*/;
         return out;
     }
 
@@ -70,15 +80,16 @@ public:
         return in;
     }
 
+private:
     int x;
     int y;
-
-private:
     void copy(const coord &other)
     {
         x = other.x;
         y = other.y;
     }
 };
+
+
 
 #endif // COORD_H
