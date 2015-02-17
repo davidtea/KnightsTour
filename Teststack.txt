@@ -1,0 +1,232 @@
+Using Stack
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 8
+Y: 8
+Now please enter your starting position.
+X: 3
+Y: 3
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 5
+Y: 4
+Finding a solution. Please wait. It will be a while...
+Dimension: 8x8
+44 53 14 49 42 7  12 9
+15 50 43 54 13 10 41 6
+58 45 52 63 48 39 8  11
+51 16 59 46 55 64 5  40
+60 57 62 1  32 47 38 27
+17 22 19 56 37 28 33 4
+20 61 24 31 2  35 26 29
+23 18 21 36 25 30 3  34
+Nd4 Ne2 Ng1 Nh3 Ng5 Nh7 Nf8 Ng6 Nh8 Nf7 Nh6 Ng8 Ne7 Nc8 Na7 Nb5 Na3 Nb1 Nc3 Na2
+Nc1 Nb3 Na1 Nc2 Ne1 Ng2 Nh4 Nf3 Nh2 Nf1 Nd2 Ne4 Ng3 Nh1 Nf2 Nd1 Ne3 Ng4 Nf6 Nh5
+Ng7 Ne8 Nc7 Na8 Nb6 Nd5 Nf4 Ne6 Nd8 Nb7 Na5 Nc6 Nb8 Nd7 Ne5 Nd3 Nb4 Na6 Nc5 Na4
+Nb2 Nc4 Nd6 Nf5
+This tour is closed
+Time taken: 2.48 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 8
+Y: 8
+Now please enter your starting position.
+X: 7
+Y: 7
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 5
+Y: 2
+Finding a solution. Please wait. It will be a while...
+Dimension: 8x8
+56 19 16 11 52 27 14 1
+17 10 57 26 15 12 37 28
+20 55 18 53 34 51 2  13
+9  60 49 58 25 38 29 36
+48 21 54 33 50 35 42 3
+61 8  59 24 45 64 39 30
+22 47 6  63 32 41 4  43
+7  62 23 46 5  44 31 40
+Nh8 Ng6 Nh4 Ng2 Ne1 Nc2 Na1 Nb3 Na5 Nb7 Nd8 Nf7 Nh6 Ng8 Ne7 Nc8 Na7 Nc6 Nb8 Na6
+Nb4 Na2 Nc1 Nd3 Ne5 Nd7 Nf8 Nh7 Ng5 Nh3 Ng1 Ne2 Nd4 Ne6 Nf4 Nh5 Ng7 Nf5 Ng3 Nh1
+Nf2 Ng4 Nh2 Nf1 Ne3 Nd1 Nb2 Na4 Nc5 Ne4 Nf6 Ne8 Nd6 Nc4 Nb6 Na8 Nc7 Nd5 Nc3 Nb5
+Na3 Nb1 Nd2 Nf3
+This tour is open
+Time taken: 0 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 8
+Y: 8
+Now please enter your starting position.
+X: 4
+Y: 0
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 6
+Y: 1
+Finding a solution. Please wait. It will be a while...
+Dimension: 8x8
+30 51 20 7  32 53 22 9
+19 6  31 52 21 8  33 46
+50 29 60 57 54 45 10 23
+5  18 49 44 59 56 47 34
+28 61 58 55 48 63 24 11
+17 4  43 62 25 12 35 38
+42 27 2  15 40 37 64 13
+3  16 41 26 1  14 39 36
+Ne1 Nc2 Na1 Nb3 Na5 Nb7 Nd8 Nf7 Nh8 Ng6 Nh4 Nf3 Nh2 Nf1 Nd2 Nb1 Na3 Nb5 Na7 Nc8
+Ne7 Ng8 Nh6 Ng4 Ne3 Nd1 Nb2 Na4 Nb6 Na8 Nc7 Ne8 Ng7 Nh5 Ng3 Nh1 Nf2 Nh3 Ng1 Ne2
+Nc1 Na2 Nc3 Nd5 Nf6 Nh7 Ng5 Ne4 Nc5 Na6 Nb8 Nd7 Nf8 Ne6 Nd4 Nf5 Nd6 Nc4 Ne5 Nc6
+Nb4 Nd3 Nf4 Ng2
+This tour is closed
+Time taken: 0.17 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 3
+Y: 3
+Now please enter your starting position.
+X: 1
+Y: 4
+Invalid square, please enter one that exists.
+Now please enter your starting position.
+X: 0
+Y: 0
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 0
+Y: 0
+Finding a solution. Please wait. It will be a while...
+
+No Solution
+Time taken: 0.01 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 8
+Y: 8
+Now please enter your starting position.
+X: 3
+Y: 3
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 1
+Y: 4
+Finding a solution. Please wait. It will be a while...
+Dimension: 8x8
+20 17 14 39 62 7  12 9
+15 38 19 22 13 10 41 6
+18 21 16 63 40 61 8  11
+37 64 53 48 23 46 5  42
+32 49 36 1  60 43 24 45
+35 54 33 52 47 58 27 4
+50 31 56 59 2  29 44 25
+55 34 51 30 57 26 3  28
+Nd4 Ne2 Ng1 Nh3 Ng5 Nh7 Nf8 Ng6 Nh8 Nf7 Nh6 Ng8 Ne7 Nc8 Na7 Nc6 Nb8 Na6 Nc7 Na8
+Nb6 Nd7 Ne5 Ng4 Nh2 Nf1 Ng3 Nh1 Nf2 Nd1 Nb2 Na4 Nc3 Nb1 Na3 Nc4 Na5 Nb7 Nd8 Ne6
+Ng7 Nh5 Nf4 Ng2 Nh4 Nf5 Ne3 Nd5 Nb4 Na2 Nc1 Nd3 Nc5 Nb3 Na1 Nc2 Ne1 Nf3 Nd2 Ne4
+Nf6 Ne8 Nd6 Nb5
+This tour is closed
+Time taken: 0.05 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 8
+Y: 8
+Now please enter your starting position.
+X: 4
+Y: 4
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 3
+Y: 2
+Finding a solution. Please wait. It will be a while...
+Dimension: 8x8
+30 3  20 23 32 41 18 15
+21 24 31 2  19 16 33 42
+4  29 22 51 40 47 14 17
+25 52 63 48 1  50 43 34
+28 5  26 39 62 35 46 13
+53 8  55 64 49 44 59 36
+6  27 10 61 38 57 12 45
+9  54 7  56 11 60 37 58
+Ne5 Nd7 Nb8 Na6 Nb4 Na2 Nc1 Nb3 Na1 Nc2 Ne1 Ng2 Nh4 Ng6 Nh8 Nf7 Nh6 Ng8 Ne7 Nc8
+Na7 Nc6 Nd8 Nb7 Na5 Nc4 Nb2 Na4 Nb6 Na8 Nc7 Ne8 Ng7 Nh5 Nf4 Nh3 Ng1 Ne2 Nd4 Ne6
+Nf8 Nh7 Ng5 Nf3 Nh2 Ng4 Nf6 Nd5 Ne3 Nf5 Nd6 Nb5 Na3 Nb1 Nc3 Nd1 Nf2 Nh1 Ng3 Nf1
+Nd2 Ne4 Nc5 Nd3
+This tour is closed
+Time taken: 0.01 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 8
+Y: 8
+Now please enter your starting position.
+X: 4
+Y: 7
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 2
+Y: 6
+Finding a solution. Please wait. It will be a while...
+Dimension: 8x8
+63 14 25 20 1  16 27 30
+24 21 64 15 26 29 2  17
+13 62 23 46 19 54 31 28
+22 45 52 55 38 47 18 3
+59 12 61 48 53 34 39 32
+44 51 58 35 56 37 4  7
+11 60 49 42 9  6  33 40
+50 43 10 57 36 41 8  5
+Ne8 Ng7 Nh5 Ng3 Nh1 Nf2 Nh3 Ng1 Ne2 Nc1 Na2 Nb4 Na6 Nb8 Nd7 Nf8 Nh7 Ng5 Ne6 Nd8
+Nb7 Na5 Nc6 Na7 Nc8 Ne7 Ng8 Nh6 Nf7 Nh8 Ng6 Nh4 Ng2 Nf4 Nd3 Ne1 Nf3 Ne5 Ng4 Nh2
+Nf1 Nd2 Nb1 Na3 Nb5 Nd6 Nf5 Nd4 Nc2 Na1 Nb3 Nc5 Ne4 Nf6 Nd5 Ne3 Nd1 Nc3 Na4 Nb2
+Nc4 Nb6 Na8 Nc7
+This tour is closed
+Time taken: 0 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 40
+Y: 40
+Now please enter your starting position.
+X: 0
+Y: 0
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 0
+Y: 0
+Finding a solution. Please wait. It will be a while...
+Dimensions are too big to display...
+This tour is open
+Time taken: 0.05 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 100
+Y: 100
+Now please enter your starting position.
+X: 0
+Y: 0
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 0
+Y: 0
+Finding a solution. Please wait. It will be a while...
+Dimensions are too big to display...
+This tour is open
+Time taken: 0.18 seconds
+Do you want to try another? (Y/N): n
+
+Thank you for using this program.
+Press <RETURN> to close this window...

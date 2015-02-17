@@ -1,3 +1,4 @@
+Using pQueue
 Knight's Tour Program.
 Please enter your desired dimensions. (Must be greater than 3x3)
 X: 8
@@ -24,7 +25,7 @@ Nc1 Nb3 Na1 Nc2 Ne1 Ng2 Nh4 Nf3 Nh2 Nf1 Nd2 Ne4 Ng3 Nh1 Nf2 Nd1 Ne3 Ng4 Nf6 Nh5
 Ng7 Ne8 Nc7 Na8 Nb6 Nd5 Nf4 Ne6 Nd8 Nb7 Na5 Nc6 Nb8 Nd7 Ne5 Nd3 Nb4 Na6 Nc5 Na4
 Nb2 Nc4 Nd6 Nf5
 This tour is closed
-Time taken: 2.522 seconds
+Time taken: 2.448 seconds
 Do you want to try another? (Y/N): y
 
 Knight's Tour Program.
@@ -53,7 +54,7 @@ Nb4 Na2 Nc1 Nd3 Ne5 Nd7 Nf8 Nh7 Ng5 Nh3 Ng1 Ne2 Nd4 Ne6 Nf4 Nh5 Ng7 Nf5 Ng3 Nh1
 Nf2 Ng4 Nh2 Nf1 Ne3 Nd1 Nb2 Na4 Nc5 Ne4 Nf6 Ne8 Nd6 Nc4 Nb6 Na8 Nc7 Nd5 Nc3 Nb5
 Na3 Nb1 Nd2 Nf3
 This tour is open
-Time taken: 0.08 seconds
+Time taken: 0 seconds
 Do you want to try another? (Y/N): y
 
 Knight's Tour Program.
@@ -82,7 +83,7 @@ Ne7 Ng8 Nh6 Ng4 Ne3 Nd1 Nb2 Na4 Nb6 Na8 Nc7 Ne8 Ng7 Nh5 Ng3 Nh1 Nf2 Nh3 Ng1 Ne2
 Nc1 Na2 Nc3 Nd5 Nf6 Nh7 Ng5 Ne4 Nc5 Na6 Nb8 Nd7 Nf8 Ne6 Nd4 Nf5 Nd6 Nc4 Ne5 Nc6
 Nb4 Nd3 Nf4 Ng2
 This tour is closed
-Time taken: 0.2 seconds
+Time taken: 0.16 seconds
 Do you want to try another? (Y/N): y
 
 Knight's Tour Program.
@@ -132,7 +133,7 @@ Nb6 Nd7 Ne5 Ng4 Nh2 Nf1 Ng3 Nh1 Nf2 Nd1 Nb2 Na4 Nc3 Nb1 Na3 Nc4 Na5 Nb7 Nd8 Ne6
 Ng7 Nh5 Nf4 Ng2 Nh4 Nf5 Ne3 Nd5 Nb4 Na2 Nc1 Nd3 Nc5 Nb3 Na1 Nc2 Ne1 Nf3 Nd2 Ne4
 Nf6 Ne8 Nd6 Nb5
 This tour is closed
-Time taken: 0.101 seconds
+Time taken: 0.07 seconds
 Do you want to try another? (Y/N): y
 
 Knight's Tour Program.
@@ -161,7 +162,7 @@ Na7 Nc6 Nd8 Nb7 Na5 Nc4 Nb2 Na4 Nb6 Na8 Nc7 Ne8 Ng7 Nh5 Nf4 Nh3 Ng1 Ne2 Nd4 Ne6
 Nf8 Nh7 Ng5 Nf3 Nh2 Ng4 Nf6 Nd5 Ne3 Nf5 Nd6 Nb5 Na3 Nb1 Nc3 Nd1 Nf2 Nh1 Ng3 Nf1
 Nd2 Ne4 Nc5 Nd3
 This tour is closed
-Time taken: 0.09 seconds
+Time taken: 0 seconds
 Do you want to try another? (Y/N): y
 
 Knight's Tour Program.
@@ -190,11 +191,42 @@ Nb7 Na5 Nc6 Na7 Nc8 Ne7 Ng8 Nh6 Nf7 Nh8 Ng6 Nh4 Ng2 Nf4 Nd3 Ne1 Nf3 Ne5 Ng4 Nh2
 Nf1 Nd2 Nb1 Na3 Nb5 Nd6 Nf5 Nd4 Nc2 Na1 Nb3 Nc5 Ne4 Nf6 Nd5 Ne3 Nd1 Nc3 Na4 Nb2
 Nc4 Nb6 Na8 Nc7
 This tour is closed
-Time taken: 0.06 seconds
+Time taken: 0.01 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 40
+Y: 40
+Now please enter your starting position.
+X: 0
+Y: 0
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 0
+Y: 0
+Finding a solution. Please wait. It will be a while...
+Dimensions are too big to display...
+This tour is open
+Time taken: 0.05 seconds
+Do you want to try another? (Y/N): y
+
+Knight's Tour Program.
+Please enter your desired dimensions. (Must be greater than 3x3)
+X: 100
+Y: 100
+Now please enter your starting position.
+X: 0
+Y: 0
+Now please enter your ending position.
+(If it doesn't matter, enter same as starting)
+X: 0
+Y: 0
+Finding a solution. Please wait. It will be a while...
+Dimensions are too big to display...
+This tour is open
+Time taken: 0.18 seconds
 Do you want to try another? (Y/N): n
 
 Thank you for using this program.
 Press <RETURN> to close this window...
-
-
-

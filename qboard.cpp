@@ -1,4 +1,4 @@
-#include "board.h"
+#include "qBoard.h"
 
 const coord UPLEFT(-1,2);
 const coord UPRIGHT(1,2);
@@ -9,7 +9,7 @@ const coord DOWNLEFT(-1,-2);
 const coord LEFTDOWN(-2,-1);
 const coord LEFTUP(-2,1);
 
-Board::Board()
+qBoard::qBoard()
 {
     XDIM = 8;
     YDIM = 8;
@@ -30,7 +30,7 @@ Board::Board()
     }
 }
 
-Board::Board(int x, int y)
+qBoard::qBoard(int x, int y)
 {
     XDIM = x;
     YDIM = y;
@@ -51,7 +51,7 @@ Board::Board(int x, int y)
     }
 }
 
-Board::~Board()
+qBoard::~qBoard()
 {
     for (int x=0; x<XDIM; ++x)
     {
@@ -65,7 +65,7 @@ Board::~Board()
     moves.clear();
 }
 
-void Board::resetAll()
+void qBoard::resetAll()
 {
     beenThere = new bool* [XDIM];
     tried = new vector<coord>* [XDIM];
@@ -85,7 +85,7 @@ void Board::resetAll()
     moves.clear();
 }
 
-vector<coord> Board::checkSpots(const coord& c, const coord& ignoreThis)
+vector<coord> qBoard::checkSpots(const coord& c, const coord& ignoreThis)
 {
     vector<coord> spots; //all moves a knight can make
     coord array[8] = {c+UPLEFT, c+UPRIGHT, c+RIGHTUP, c+RIGHTDOWN, c+DOWNRIGHT, c+DOWNLEFT, c+LEFTDOWN, c+LEFTUP};
@@ -102,7 +102,7 @@ vector<coord> Board::checkSpots(const coord& c, const coord& ignoreThis)
     return spots;
 }
 
-vector<coord> Board::checkValidSpots(const coord &c)
+vector<coord> qBoard::checkValidSpots(const coord &c)
 {
     vector<coord> spots; //all moves a knight can make
     coord array[8] = {c+UPLEFT, c+UPRIGHT, c+RIGHTUP, c+RIGHTDOWN, c+DOWNRIGHT, c+DOWNLEFT, c+LEFTDOWN, c+LEFTUP};
@@ -116,7 +116,7 @@ vector<coord> Board::checkValidSpots(const coord &c)
     return spots;
 }
 
-vector<int> Board::checkPossibleSpots(const vector<coord> &checkThese)
+vector<int> qBoard::checkPossibleSpots(const vector<coord> &checkThese)
 {
     vector<coord> temp;
     vector<int> numberOfMoves; //numbers will correspond to squares taken from checkspots
@@ -128,7 +128,7 @@ vector<int> Board::checkPossibleSpots(const vector<coord> &checkThese)
     return numberOfMoves;
 }
 
-void Board::sortPossibles(vector<coord> &spots, vector<int> &possible)
+void qBoard::sortPossibles(vector<coord> &spots, vector<int> &possible)
 {
     // sort moves by least possible to greatest by swapping
     for(unsigned int i=0; i<possible.size(); ++i)
@@ -150,69 +150,69 @@ void Board::sortPossibles(vector<coord> &spots, vector<int> &possible)
     }
 }
 
-void Board::addTry(const coord &c) //from whatever was backtracked to, record what was tried so it wont repeat
+void qBoard::addTry(const coord &c) //from whatever was backtracked to, record what was tried so it wont repeat
 {
-    tried[moves.top().getX()][moves.top().getY()].push_back(c);
+    tried[moves.front().getX()][moves.front().getY()].push_back(c);
 }
 
-void Board::clearTry(const coord &c) //clears the tries so that when it backtracks and gets back to it, it can try all possibilities
+void qBoard::clearTry(const coord &c) //clears the tries so that when it backtracks and gets back to it, it can try all possibilities
 {
     tried[c.getX()][c.getY()].clear();
 }
 
-bool Board::validSpot(const coord &c)
+bool qBoard::validSpot(const coord &c)
 {
     return (c.getX() >= 0 && c.getX() < XDIM && c.getY() >= 0 && c.getY() < YDIM);
 }
 
-bool Board::checkBeenThere(const coord &c)
+bool qBoard::checkBeenThere(const coord &c)
 {
     return beenThere[c.getX()][c.getY()];
 }
 
-bool Board::checkTried(const coord &c)
+bool qBoard::checkTried(const coord &c)
 {
-    for(unsigned int i=0; i<tried[moves.top().getX()][moves.top().getY()].size(); ++i)
-        if(tried[moves.top().getX()][moves.top().getY()].at(i) == c)
+    for(unsigned int i=0; i<tried[moves.front().getX()][moves.front().getY()].size(); ++i)
+        if(tried[moves.front().getX()][moves.front().getY()].at(i) == c)
             return true;
     return false;
 }
 
-void Board::setBeenThere(const coord &c)
+void qBoard::setBeenThere(const coord &c)
 {
     beenThere[c.getX()][c.getY()] = !beenThere[c.getX()][c.getY()];
 }
 
-void Board::setHistory(const coord &c)
+void qBoard::setHistory(const coord &c)
 {
     (history[c.getX()][c.getY()] == 0) ? history[c.getX()][c.getY()] = moves.size(): history[c.getX()][c.getY()] = 0;
 }
 
-bool Board::findEnd()
+bool qBoard::findEnd()
 {
     coord pos = startpos;
     coord next;
-    moves.push(pos); //push starting pos to stack
+    moves.enqueue(pos, moves.size()); //enqueue starting pos to stack
     setBeenThere(pos); //sets satarting pos as beenThere
     setHistory(pos); //sets starting pos as move 1
     cout << "Finding a solution. Please wait. It will be a while..." << endl;
     while(!moves.empty()) //if empty, that means backtracked all the way back and no solution
     {
-        pos = moves.top(); //each loop, set pos to last move
+        pos = moves.front(); //each loop, set pos to last move
         vector<coord> check = checkSpots(pos); //next moves knight can make
         while(check.size() == 0) //reaches a dead end
         {
-            next = backtrack(); //backtracks, pops and unsets beenthere, history
-            if(moves.size() == 0) //tried every combination of moves but no solution, it popped everything off stack
+            next = backtrack(); //backtracks, dequeues and unsets beenthere, history
+            if(moves.size() == 0) //tried every combination of moves but no solution, it dequeueped everything off stack
                 return false;
-            check = checkSpots(moves.top(), next); //checkspots ignores the 'next', the deadend move and any other tried moves
+            check = checkSpots(moves.front(), next); //checkspots ignores the 'next', the deadend move and any other tried moves
 
         }
         vector<int> possible = checkPossibleSpots(check); //gets number of possible moves each square from checkspots has
         sortPossibles(check, possible); //sorts from least to greatest, try least amount first
         pos = check[0]; // least amount of possible moves will be first in array
         addTry(pos); // sets the next move as a tried move so it will not try again when backtracked here
-        moves.push(pos); //adds the new move to the stack
+        moves.enqueue(pos, moves.size()); //adds the new move to the stack
         setBeenThere(pos); //set that knight has been there
         setHistory(pos); //set move number of new move
 
@@ -222,16 +222,16 @@ bool Board::findEnd()
     return false; //default case, no solution
 }
 
-bool Board::calculateMoves(const coord &start, const coord &end)
+bool qBoard::calculateMoves(const coord &start, const coord &end)
 {
     startpos = start; //set starting pos
     endpos = end; //set ending pos
     return findEnd();
 }
 
-void Board::generateClosedTours(ofstream &out)
+void qBoard::generateClosedTours(ofstream &out)
 {
-    out << "Closed Tours of Board with Dimension: " << XDIM << "x" << YDIM << endl;
+    out << "Closed Tours of qBoard with Dimension: " << XDIM << "x" << YDIM << endl;
     for(int x=0; x<XDIM; ++x)
     {
         for(int y=0; y<YDIM; ++y)
@@ -255,33 +255,33 @@ void Board::generateClosedTours(ofstream &out)
     }
 }
 
-bool Board::closedTour()
+bool qBoard::closedTour()
 {
     clock_t tstart = clock();
     coord pos = startpos;
     coord next;
-    moves.push(startpos); //push starting pos to stack
+    moves.enqueue(startpos, moves.size()); //enqueue starting pos to stack
     setBeenThere(startpos); //sets starting pos as beenThere
     setHistory(startpos); //sets starting pos as move 1
     while(!moves.empty()) //if empty, that means backtracked all the way back and no solution
     {
-        if((double)(clock() - tstart)/CLOCKS_PER_SEC >= 5) //if it takes more than 5 secs to find, just skip it
+        if((double)(clock() - tstart)/CLOCKS_PER_SEC >= 1.5) //if it takes more than 5secs to find, just skip it
             return false;
-        pos = moves.top(); //each loop, set pos to last move
+        pos = moves.front(); //each loop, set pos to last move
         vector<coord> check = checkSpots(pos); //next moves knight can make
         while(check.size() == 0) //reaches a dead end
         {
-            next = backtrack(); //backtracks, pops and unsets beenthere, history
-            if(moves.size() == 0) //tried every combination of moves but no solution, it popped everything off stack
+            next = backtrack(); //backtracks, dequeues and unsets beenthere, history
+            if(moves.size() == 0) //tried every combination of moves but no solution, it dequeueped everything off stack
                 return false;
-            check = checkSpots(moves.top(), next); //checkspots ignores the 'next', the deadend move and any other tried moves
+            check = checkSpots(moves.front(), next); //checkspots ignores the 'next', the deadend move and any other tried moves
 
         }
         vector<int> possible = checkPossibleSpots(check); //gets number of possible moves each square from checkspots has
         sortPossibles(check, possible); //sorts from least to greatest, try least amount first
         pos = check[0]; // least amount of possible moves will be first in array
         addTry(pos); // sets the next move as a tried move so it will not try again when backtracked here
-        moves.push(pos); //adds the new move to the stack
+        moves.enqueue(pos, moves.size()); //adds the new move to the stack
         setBeenThere(pos); //set that knight has been there
         setHistory(pos); //set move number of new move
 
@@ -291,66 +291,72 @@ bool Board::closedTour()
     return false; //default case, no solution
 }
 
-coord Board::backtrack()
+coord qBoard::backtrack()
 {
-    clearTry(moves.top()); //clears the tries the last deadend made, so when knight comes back, it can try all moves
-    coord nogood = moves.pop(); //pops the deadend move off stack
+    clearTry(moves.front()); //clears the tries the last deadend made, so when knight comes back, it can try all moves
+    coord nogood;
+    moves.dequeue(nogood); //dequeues the deadend move off stack
     setBeenThere(nogood); //unsets the deadend move square
     setHistory(nogood); //erase from history
     return nogood; //returns the deadend move for checkspots to ignore
 }
 
-bool Board::checkClosed() //checks if the start pos and ending pos are one move away, closed
+bool qBoard::checkClosed() //checks if the start pos and ending pos are one move away, closed
 {
-    if(startpos+UPLEFT == moves.top())
+    if(startpos+UPLEFT == moves.front())
         return true;
-    if(startpos+UPRIGHT == moves.top())
+    if(startpos+UPRIGHT == moves.front())
         return true;
-    if(startpos+RIGHTUP == moves.top())
+    if(startpos+RIGHTUP == moves.front())
         return true;
-    if(startpos+RIGHTDOWN == moves.top())
+    if(startpos+RIGHTDOWN == moves.front())
         return true;
-    if(startpos+DOWNRIGHT == moves.top())
+    if(startpos+DOWNRIGHT == moves.front())
         return true;
-    if(startpos+DOWNLEFT == moves.top())
+    if(startpos+DOWNLEFT == moves.front())
         return true;
-    if(startpos+LEFTDOWN == moves.top())
+    if(startpos+LEFTDOWN == moves.front())
         return true;
-    if(startpos+LEFTUP == moves.top())
-        return true; 
+    if(startpos+LEFTUP == moves.front())
+        return true;
     return false;
 }
 
-void Board::setStart(const coord &c)
+void qBoard::setStart(const coord &c)
 {
     startpos = c;
 }
 
-void Board::setEnd(const coord &c)
+void qBoard::setEnd(const coord &c)
 {
     endpos = c;
 }
 
 
-void Board::chessNotation()
+void qBoard::chessNotation()
 {
     //create in order stack of moves
-    LinkedStack<coord> copy(moves);
-    LinkedStack<coord> reversed(moves.size());
-    //pop copy's moves and pushes into reversed to get moves with starting at top
+    pQueue<coord,int> copy(moves);
+    pQueue<coord,int> reversed(moves.size());
+    coord front;
+    //dequeue copy's moves and enqueuees into reversed to get moves with starting at front
     while(!copy.empty())
-        reversed.push(copy.pop());
+    {
+        copy.dequeue(front);
+        reversed.enqueue(front, reversed.size());
+    }
     //chess notation
     while(!reversed.empty())
     {
-        coord temp = reversed.pop(); //pops and then outputs chess notation
+        coord temp;
+        reversed.dequeue(temp); //dequeues and then outputs chess notation
         char x = 'a' + temp.getX();
         char y = '1' + temp.getY();
         cout << 'N' << x << y << " "; //'N' for knight
     }
 }
 
-void Board::print()
+void qBoard::print()
 {
     cout << "Dimension: " << XDIM << "x" << YDIM << endl;
     for (int y=YDIM-1; y>=0; --y)
@@ -374,21 +380,25 @@ void Board::print()
     }
 }
 
-ostream& operator<<(ostream &out, const Board &b) //chess notation
+ostream& operator<<(ostream &out, const qBoard &b) //chess notation
 {
     //create in order stack of moves
-    LinkedStack<coord> copy(b.moves);
-    LinkedStack<coord> reversed(copy.size());
-    //pop copy's moves and pushes into reversed to get moves with starting at top
+    pQueue<coord,int> copy(b.moves);
+    pQueue<coord,int> reversed(copy.size());
+    coord front;
+    //dequeue copy's moves and enqueuees into reversed to get moves with starting at front
     while(!copy.empty())
-        reversed.push(copy.pop());
+    {
+        copy.dequeue(front);
+        reversed.enqueue(front, reversed.size());
+    }
     //chess notation
     coord temp;
     if(out == cout)
     {
         while(!reversed.empty())
         {
-            temp = reversed.pop(); //pops and then outputs chess notation
+            reversed.dequeue(temp); //dequeues and then outputs chess notation
             char x = 'a' + temp.getX();
             char y = '1' + temp.getY();
             out << 'N' << x << y << " ";
@@ -399,7 +409,7 @@ ostream& operator<<(ostream &out, const Board &b) //chess notation
         out << "With starting position" << b.startpos << " and Ending pos:" << b.endpos << endl;
         while(!reversed.empty())
         {
-            temp = reversed.pop(); //pops and then outputs chess notation
+            reversed.dequeue(temp); //dequeues and then outputs chess notation
             char x = 'a' + temp.getX();
             char y = '1' + temp.getY();
             out << x << y; //no spaces between

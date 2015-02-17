@@ -1,23 +1,23 @@
 #include <iostream>
 #include <fstream>
-#include "board.h"
+#include "qboard.h"
 
 using namespace std;
 
-void start();
-void generateTours(int xdim, int ydim);
+void qstart();
+void qgenerateTours(int xdim, int ydim);
 
-int main()
+int main2()
 {
-    cout << "Using Stack" << endl;
-    generateTours(8,8);
-//    start();
+//    generateTours(8,8);
+    cout << "Using pQueue" << endl;
+    qstart();
     return 0;
 }
 
-void generateTours(int xdim, int ydim)
+void qgenerateTours(int xdim, int ydim)
 {
-    Board chess(xdim, ydim);
+    qBoard chess(xdim, ydim);
     ofstream myfile;
     myfile.open("ClosedTours.txt");
     if (myfile.is_open())
@@ -29,7 +29,7 @@ void generateTours(int xdim, int ydim)
         cout <<"ERROR OPENING FILE" <<endl;
 }
 
-void start()
+void qstart()
 {
     int x, y;
     coord start, end;
@@ -60,7 +60,7 @@ void start()
                 cout << "Invalid square, please enter one that exists." << endl;
         } while(end.getX() < 0 || end.getX() >= x || end.getY() < 0 || end.getY() >= y);
         clock_t tstart = clock();
-        Board chess(x,y);
+        qBoard chess(x,y);
         double time;
         if(chess.calculateMoves(start, end))
         {
