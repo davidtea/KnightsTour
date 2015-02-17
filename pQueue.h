@@ -143,7 +143,8 @@ void pQueue<T,U>::enqueue(const T &d, const U &p)
 
     if(!head)
         head = tail = newpnode;
-    else{
+    else
+    {
         if(!higherPriority(*tail, *newpnode))
         {
             tail->prevLink() = newpnode;
@@ -152,7 +153,11 @@ void pQueue<T,U>::enqueue(const T &d, const U &p)
         }
         else
         {
-            if(higherPriority(*head, *newpnode))
+            while(higherPriority(*ptr->nextLink(), *newpnode))
+            {
+                ptr = ptr->nextLink();
+            }
+            if(!ptr)
             {
                 newpnode->prevLink() = head;
                 head->nextLink() = newpnode;
@@ -160,10 +165,6 @@ void pQueue<T,U>::enqueue(const T &d, const U &p)
             }
             else
             {
-                while(higherPriority(*ptr->nextLink(), *newpnode))
-                {
-                    ptr = ptr->nextLink();
-                }
                 newpnode->prevLink()=ptr->prevLink();
                 newpnode->prevLink()->nextLink() = newpnode;
                 newpnode->nextLink() = ptr;

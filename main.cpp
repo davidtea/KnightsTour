@@ -10,8 +10,8 @@ void generateTours(int xdim, int ydim);
 int main()
 {
     cout << "Using Stack" << endl;
-    generateTours(8,8);
-//    start();
+//    generateTours(8,8);
+    start();
     return 0;
 }
 
