@@ -66,7 +66,7 @@ public:
     friend
     ostream& operator <<(ostream &out, const coord &c)
     {
-        out << /*"(" <<*/ c.x << "," << c.y /*<< ")"*/;
+        out << "(" << c.x << "," << c.y << ")";
         return out;
     }
 

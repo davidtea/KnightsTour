@@ -62,6 +62,27 @@ Board::~Board()
     delete [] beenThere;
     delete [] tried;
     delete [] history;
+    moves.clear();
+}
+
+void Board::resetAll()
+{
+    beenThere = new bool* [XDIM];
+    tried = new vector<coord>* [XDIM];
+    history = new int* [XDIM];
+    moves.resize(XDIM * YDIM);
+    for (int x=0; x<XDIM; ++x)
+    {
+        beenThere[x] = new bool[YDIM];
+        tried[x] = new vector<coord>[YDIM];
+        history[x] = new int[YDIM];
+        for (int y=0; y<YDIM; ++y)
+        {
+            beenThere[x][y] = false;
+            history[x][y] = 0;
+        }
+    }
+    moves.clear();
 }
 
 vector<coord> Board::checkSpots(const coord& c, const coord& ignoreThis)
@@ -168,9 +189,10 @@ bool Board::findEnd()
         while(check.size() == 0) //reaches a dead end
         {
             next = backtrack(); //backtracks, pops and unsets beenthere, history
-            check = checkSpots(moves.top(), next); //checkspots ignores the 'next', the deadend move and any other tried moves
-            if(moves.empty()) //tried every combination of moves but no solution, it popped everything off stack
+            if(moves.size() == 0) //tried every combination of moves but no solution, it popped everything off stack
                 return false;
+            check = checkSpots(moves.top(), next); //checkspots ignores the 'next', the deadend move and any other tried moves
+
         }
         vector<int> possible = checkPossibleSpots(check); //gets number of possible moves each square from checkspots has
         sortPossibles(check, possible); //sorts from least to greatest, try least amount first
@@ -190,36 +212,73 @@ bool Board::calculateMoves(const coord &start, const coord &end)
 {
     startpos = start; //set starting pos
     endpos = end; //set ending pos
-/*    if(start != end)*/ //when user wants a specific ending point from starting point, else does it Warnsdorff's rule way
-        return findEnd();
-//    moves.push(start);
-//    setBeenThere(start);
-//    setHistory(start);
-//    print();
-//    coord root;
-//    coord next;
-//    while(!moves.empty())
-//    {
-//        root = moves.top();
-//        vector<coord> check = checkSpots(moves.top());
+    return findEnd();
+}
 
-//        while(check.size() == 0)
-//        {
-//            next = backtrack();
-//            check = checkSpots(moves.top(), next);
-//            print();
-//        }
-//        vector<int> possible = checkPossibleSpots(check);
-//        sortPossibles(check, possible);
-//        next = check[0];
-//        moves.push(next);
-//        setBeenThere(next);
-//        setHistory(next);
-//        print();
-//        if(moves.full())
-//            return true;
-//    }
-//    return false;
+void Board::generateClosedTours(ofstream &out)
+{
+    out << "Closed Tours of Board with Dimension: " << XDIM << "x" << YDIM << endl;
+    for(int x=0; x<XDIM; ++x)
+    {
+        for(int y=0; y<YDIM; ++y)
+        {
+            startpos = coord(x,y);
+            endpos = startpos;
+            moves.push(startpos); //push starting pos to stack
+            setBeenThere(startpos); //sets satarting pos as beenThere
+            setHistory(startpos); //sets starting pos as move 1
+            vector<coord> check = checkSpots(startpos);
+            for(unsigned int i=0; i<check.size(); i++)
+            {
+                endpos = check[i];
+                cout << startpos << "->" << endpos;
+                if(closedTour())
+                {
+                    cout << "SUCCESS" << endl;
+                    out << *this << endl;
+                }
+                else
+                    cout << "FAIL" << endl;
+                resetAll();
+            }
+        }
+    }
+}
+
+bool Board::closedTour()
+{
+    clock_t tstart = clock();
+    coord pos = startpos;
+    coord next;
+    moves.push(pos); //push starting pos to stack
+    setBeenThere(pos); //sets satarting pos as beenThere
+    setHistory(pos); //sets starting pos as move 1
+    while(!moves.empty()) //if empty, that means backtracked all the way back and no solution
+    {
+        if((double)(clock() - tstart)/CLOCKS_PER_SEC >= 5.0) //if it takes more than 5secs to find, just skip it
+            return false;
+        pos = moves.top(); //each loop, set pos to last move
+        vector<coord> check = checkSpots(pos); //next moves knight can make
+        while(check.size() == 0) //reaches a dead end
+        {
+            next = backtrack(); //backtracks, pops and unsets beenthere, history
+            if(moves.size() == 0) //tried every combination of moves but no solution, it popped everything off stack
+                return false;
+            check = checkSpots(moves.top(), next); //checkspots ignores the 'next', the deadend move and any other tried moves
+
+        }
+        vector<int> possible = checkPossibleSpots(check); //gets number of possible moves each square from checkspots has
+        sortPossibles(check, possible); //sorts from least to greatest, try least amount first
+        pos = check[0]; // least amount of possible moves will be first in array
+        addTry(pos); // sets the next move as a tried move so it will not try again when backtracked here
+        moves.push(pos); //adds the new move to the stack
+        setBeenThere(pos); //set that knight has been there
+        setHistory(pos); //set move number of new move
+
+        if (moves.full()) //when solution is found, stack will be full
+            return true;
+    }
+    return false; //default case, no solution
 }
 
 coord Board::backtrack()
@@ -250,6 +309,16 @@ bool Board::checkClosed() //checks if the start pos and ending pos are one move 
     if(startpos+LEFTUP == moves.top())
         return true; 
     return false;
+}
+
+void Board::setStart(const coord &c)
+{
+    startpos = c;
+}
+
+void Board::setEnd(const coord &c)
+{
+    endpos = c;
 }
 
 
@@ -312,7 +381,7 @@ ostream& operator<<(ostream &out, const Board &b) //chess notation
             temp = reversed.pop(); //pops and then outputs chess notation
             char x = 'a' + temp.getX();
             char y = '1' + temp.getY();
-            cout << 'N' << x << y << " "; //'N' for knight
+            out << x << y << " ";
         }
     }
     else
@@ -323,7 +392,7 @@ ostream& operator<<(ostream &out, const Board &b) //chess notation
             temp = reversed.pop(); //pops and then outputs chess notation
             char x = 'a' + temp.getX();
             char y = '1' + temp.getY();
-            cout << 'N' << x << y; //'N' for knight and no spaces between
+            out << x << y; //no spaces between
         }
     }
     return out;

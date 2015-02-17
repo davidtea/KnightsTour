@@ -23,6 +23,7 @@ public:
     vector<int> checkPossibleSpots(const vector<coord> &checkThese); //from one of the initial squares, finds the next one with the least moves
     void sortPossibles(vector<coord> &spots, vector<int> &possible); //sorts the order of moves from least to greatest number of moves
 
+    void resetAll();
     void addTry(const coord &c); //adds to vector of last the next move
     void clearTry(const coord &c); //clears the last vector of moves when backtracking
     bool validSpot(const coord &c); //if it exists on the board and haven't been there or tried yet and not the end pos unless it's the end
@@ -34,6 +35,12 @@ public:
     bool calculateMoves(const coord &start, const coord &end); //calculates the tour
     coord backtrack(); //goes back one move if it reaches a dead end, sets tried
     bool checkClosed(); //checks if tour is closed of not
+
+    void setStart(const coord &c);
+    void setEnd(const coord &c);
+
+    void generateClosedTours(ofstream &out); //used for finding closed tours, cannot find all of them though
+    bool closedTour(); //same as setEnd except for outputting to file, and stops a search after 5 secs.
 
     void chessNotation(); //shows the knight's tour in chess notation
     void print(); //prints the board
