@@ -1,10 +1,8 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include <vector>
 #include <cstdio>
 #include <time.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "LinkedStack.h"
 #include "coord.h"
